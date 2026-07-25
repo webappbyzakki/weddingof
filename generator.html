@@ -205,22 +205,82 @@
         });
 
         const open = document.createElement("a");
-        open.className = "button-link secondary";
-        open.href = item.url;
-        open.target = "_blank";
-        open.rel = "noopener noreferrer";
-        open.textContent = "Tes Link";
+open.className = "button-link secondary";
+open.href = item.url;
+open.target = "_blank";
+open.rel = "noopener noreferrer";
+open.textContent = "Tes Link";
 
-        const whatsapp = document.createElement("a");
-        whatsapp.className = "button-link secondary";
-        whatsapp.href = `https://wa.me/?text=${encodeURIComponent(`Assalamu'alaikum ${item.name}, berikut undangan pernikahan Zakki & Niha:\n${item.url}`)}`;
-        whatsapp.target = "_blank";
-        whatsapp.rel = "noopener noreferrer";
-        whatsapp.textContent = "Bagikan WA";
+const coupleName = "Zakki & Niha";
 
-        actions.append(copy, open, whatsapp);
-        card.append(name, link, actions);
-        results.appendChild(card);
+const whatsappMessage = `Assalamualaikum Wr. Wb.
+
+Kepada Yth.
+${item.name}
+
+Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk berkenan hadir serta memberikan doa dan restu pada acara pernikahan kami.
+
+Untuk informasi lengkap mengenai waktu, tempat, dan rangkaian acara, silakan mengakses undangan melalui tautan berikut:
+${item.url}
+
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i dapat berkenan hadir.
+
+Wassalamualaikum Wr. Wb.
+
+Yang berbahagia,
+${coupleName}`;
+
+const encodedMessage = encodeURIComponent(whatsappMessage);
+
+const whatsappFallback =
+  `https://wa.me/?text=${encodedMessage}`;
+
+const encodedFallback =
+  encodeURIComponent(whatsappFallback);
+
+const whatsappPersonal = document.createElement("a");
+whatsappPersonal.className = "button-link secondary";
+whatsappPersonal.href =
+  `intent://send?text=${encodedMessage}` +
+  `#Intent;` +
+  `scheme=whatsapp;` +
+  `package=com.whatsapp;` +
+  `S.browser_fallback_url=${encodedFallback};` +
+  `end`;
+whatsappPersonal.target = "_blank";
+whatsappPersonal.rel = "noopener noreferrer";
+whatsappPersonal.textContent = "WA Biasa";
+
+const whatsappBusiness = document.createElement("a");
+whatsappBusiness.className = "button-link secondary";
+whatsappBusiness.href =
+  `intent://send?text=${encodedMessage}` +
+  `#Intent;` +
+  `scheme=whatsapp;` +
+  `package=com.whatsapp.w4b;` +
+  `S.browser_fallback_url=${encodedFallback};` +
+  `end`;
+whatsappBusiness.target = "_blank";
+whatsappBusiness.rel = "noopener noreferrer";
+whatsappBusiness.textContent = "WA Bisnis";
+
+/* Fallback untuk iPhone, komputer, dan browser non-Android */
+const isAndroid = /Android/i.test(navigator.userAgent);
+
+if (!isAndroid) {
+  whatsappPersonal.href = whatsappFallback;
+  whatsappBusiness.href = whatsappFallback;
+}
+
+actions.append(
+  copy,
+  open,
+  whatsappPersonal,
+  whatsappBusiness
+);
+
+card.append(name, link, actions);
+results.appendChild(card);
       });
     }
 
