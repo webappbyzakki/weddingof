@@ -1224,9 +1224,24 @@
 
     /* CLOSING */
     .closing {
-      padding-bottom: calc(120px + var(--nav-height));
-      text-align: center;
-    }
+  padding-bottom: calc(
+    180px + var(--nav-height) + env(safe-area-inset-bottom)
+  );
+  text-align: center;
+}
+    @media (max-width: 580px) {
+  .closing {
+    padding-bottom: calc(
+      220px + var(--nav-height) + env(safe-area-inset-bottom)
+    );
+  }
+
+  .credit {
+    margin-top: 30px;
+    margin-bottom: 0;
+    padding-bottom: 20px;
+  }
+}
 
     .closing-card {
       position: relative;
