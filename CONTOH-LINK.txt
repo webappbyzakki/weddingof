@@ -1,0 +1,7 @@
+URL utama:
+https://USERNAME.github.io/undangan-zakki-niha/
+
+Contoh personalisasi:
+https://USERNAME.github.io/undangan-zakki-niha/?to=Bapak%20Ahmad%20dan%20Keluarga
+https://USERNAME.github.io/undangan-zakki-niha/?to=Ibu%20Siti
+https://USERNAME.github.io/undangan-zakki-niha/?to=Andi%20%26%20Rina
